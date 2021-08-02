@@ -5,14 +5,24 @@ plugins {
 group 'org.example'
 version '1.0-SNAPSHOT'
 
+sourceCompatibility = 1.8
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.7.2')
+    testRuntimeOnly('org.junit.jupiter:junit-jupiter-engine:5.7.2')
+
+    testImplementation('junit:junit:4.13.2')
+    testRuntimeOnly('org.junit.vintage:junit-vintage-engine:5.7.2')
+
+//    testCompile 'com.codeborne:selenide:5.23.0'
+    implementation group: 'com.codeborne', name: 'selenide', version: '5.23.0'
 }
+
+apply plugin: 'java'
 
 test {
     useJUnitPlatform()
