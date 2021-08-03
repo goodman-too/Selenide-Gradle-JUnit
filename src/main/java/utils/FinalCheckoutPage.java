@@ -8,6 +8,7 @@ import java.util.List;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
+
 public class FinalCheckoutPage {
 
     SelenideElement cancelButton = $("button#cancel");
