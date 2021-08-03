@@ -2,6 +2,7 @@ package utils;
 
 import com.codeborne.selenide.SelenideElement;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -15,16 +16,16 @@ public class FinalCheckoutPage {
     List<SelenideElement> itemsPrices = $$("div.inventory_item_price");
 
 
-    public float getTotalPrice() {
-        return Float.parseFloat(itemTotalPrice.getText().substring(13));
+    public BigDecimal getTotalPrice() {
+        return new BigDecimal(itemTotalPrice.getText().substring(13));
     }
 
-    public float getSumOfAllItems() {
+    public BigDecimal getSumOfAllItems() {
         return itemsPrices.stream()
                 .map(SelenideElement::getText)
                 .map(s -> s.substring(1))
-                .map(Float::parseFloat)
-                .reduce(Float::sum)
+                .map(BigDecimal::new)
+                .reduce(BigDecimal::add)
                 .get();
     }
 }
