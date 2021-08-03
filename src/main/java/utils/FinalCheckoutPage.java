@@ -15,6 +15,7 @@ public class FinalCheckoutPage {
     SelenideElement finishButton = $("button#finish");
     SelenideElement itemTotalPrice = $("div.summary_subtotal_label");
     List<SelenideElement> itemsPrices = $$("div.inventory_item_price");
+    SelenideElement completeOrderElement = $("h2.complete-header");
 
 
     public BigDecimal getTotalPrice() {
@@ -28,5 +29,25 @@ public class FinalCheckoutPage {
                 .map(BigDecimal::new)
                 .reduce(BigDecimal::add)
                 .get();
+    }
+
+    public SelenideElement getCancelButton() {
+        return cancelButton;
+    }
+
+    public SelenideElement getFinishButton() {
+        return finishButton;
+    }
+
+    public SelenideElement getItemTotalPrice() {
+        return itemTotalPrice;
+    }
+
+    public List<SelenideElement> getItemsPrices() {
+        return itemsPrices;
+    }
+
+    public SelenideElement getCompleteOrderElement() {
+        return completeOrderElement;
     }
 }
