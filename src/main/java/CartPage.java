@@ -16,4 +16,12 @@ public class CartPage {
     public void removeLastItem() {
         removeButtons.get(removeButtons.size() - 1).click();
     }
+
+    public void checkout() {
+        checkoutButton.click();
+    }
+
+    public int getNumberOfItems() {
+        return removeButtons.size();
+    }
 }

@@ -17,4 +17,8 @@ public class CheckoutPage extends HeaderElements {
         lastNameField.setValue("Name");
         postalCodeField.setValue("007007");
     }
+
+    public void confirm() {
+        continueButton.click();
+    }
 }

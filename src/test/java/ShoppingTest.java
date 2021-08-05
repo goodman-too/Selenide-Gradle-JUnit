@@ -2,7 +2,6 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.*;
 
-import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 
@@ -34,18 +33,17 @@ public class ShoppingTest {
         loginPage.login("standard_user", "secret_sauce");
 
         inventoryPage.addAllItemsToCart();
-        inventoryPage.shoppingCartButton.click();
+        inventoryPage.openShoppingCart();
 
-        cartPage.checkoutButton.click();
+        cartPage.checkout();
 
         checkoutPage.fillUserFields();
-        checkoutPage.continueButton.click();
+        checkoutPage.confirm();
 
-        finalCheckoutPage.finishButton.click();
+        finalCheckoutPage.finishOrder();
 
         //Asserts
-        finalCheckoutPage.completeOrderElement.should(appear);
-        Assertions.assertEquals("THANK YOU FOR YOUR ORDER", finalCheckoutPage.completeOrderElement.getText());
+        finalCheckoutPage.checkOrderConfirmation();
     }
 
     @Test
@@ -55,14 +53,14 @@ public class ShoppingTest {
         loginPage.login("standard_user", "secret_sauce");
 
         inventoryPage.addAllItemsToCart();
-        inventoryPage.shoppingCartButton.click();
+        inventoryPage.openShoppingCart();
 
-        cartPage.checkoutButton.click();
+        cartPage.checkout();
 
         checkoutPage.fillUserFields();
-        checkoutPage.continueButton.click();
+        checkoutPage.confirm();
 
-        finalCheckoutPage.cancelButton.click();
+        finalCheckoutPage.cancelOrder();
 
         //Asserts
         Assertions.assertEquals("https://www.saucedemo.com/inventory.html", WebDriverRunner.url());
@@ -75,15 +73,15 @@ public class ShoppingTest {
         loginPage.login("standard_user", "secret_sauce");
 
         inventoryPage.addAllItemsToCart();
-        inventoryPage.shoppingCartButton.click();
+        inventoryPage.openShoppingCart();
 
         //Get data for assert
-        int numbersOfItemsBefore = cartPage.removeButtons.size();
+        int numberOfItemsBefore = cartPage.getNumberOfItems();
         cartPage.removeLastItem();
-        int numbersOfItemsAfter = cartPage.removeButtons.size();
+        int numberOfItemsAfter = cartPage.getNumberOfItems();
 
         //Asserts
-        Assertions.assertEquals(numbersOfItemsBefore, (numbersOfItemsAfter+1));
+        Assertions.assertEquals(numberOfItemsBefore, (numberOfItemsAfter+1));
     }
 
     @Test
@@ -93,12 +91,12 @@ public class ShoppingTest {
         loginPage.login("standard_user", "secret_sauce");
 
         inventoryPage.addAllItemsToCart();
-        inventoryPage.shoppingCartButton.click();
+        inventoryPage.openShoppingCart();
 
-        cartPage.checkoutButton.click();
+        cartPage.checkout();
 
         checkoutPage.fillUserFields();
-        checkoutPage.continueButton.click();
+        checkoutPage.confirm();
 
         //Asserts
         Assertions.assertEquals(finalCheckoutPage.getTotalPrice(), finalCheckoutPage.getSumOfAllItems());

@@ -1,6 +1,7 @@
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -17,5 +18,17 @@ public class LoginPage extends HeaderElements {
         loginField.setValue(login);
         passwordField.setValue(password);
         loginButton.click();
+    }
+
+    public void checkLogIn() {
+        menuButton.shouldBe(visible);
+    }
+
+    public void checkLogOut() {
+        loginField.shouldBe(visible);
+    }
+
+    public void checkErrorMessage() {
+        errorMessage.shouldBe(visible);
     }
 }

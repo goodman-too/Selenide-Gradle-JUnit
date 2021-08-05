@@ -1,4 +1,3 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 
@@ -27,7 +26,7 @@ public class LoginTest {
     public void shouldLogin() {
         loginPage.login("standard_user", "secret_sauce");
 
-        Assertions.assertTrue(loginPage.menuButton.isDisplayed());
+        loginPage.checkLogIn();
     }
 
     @Test
@@ -35,7 +34,7 @@ public class LoginTest {
     public void shouldNotLogin() {
         loginPage.login("asdfasdf", "asdfasdfasdf");
 
-        Assertions.assertTrue(loginPage.errorMessage.exists());
+        loginPage.checkErrorMessage();
     }
 
     @Test
@@ -43,9 +42,8 @@ public class LoginTest {
     public void shouldLogOut() {
         loginPage.login("standard_user", "secret_sauce");
 
-        loginPage.menuButton.should(Condition.appear).click();
-        loginPage.logOutInMenu.should(Condition.appear).click();
+        loginPage.logOut();
 
-        Assertions.assertTrue(loginPage.loginButton.isDisplayed());
+        loginPage.checkLogOut();
     }
 }

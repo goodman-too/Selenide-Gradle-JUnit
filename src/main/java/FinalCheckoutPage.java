@@ -3,6 +3,7 @@ import com.codeborne.selenide.SelenideElement;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
@@ -27,5 +28,20 @@ public class FinalCheckoutPage {
                 .map(BigDecimal::new)
                 .reduce(BigDecimal::add)
                 .get();
+    }
+
+    public void finishOrder() {
+        finishButton.click();
+    }
+
+    public void cancelOrder() {
+        cancelButton.click();
+    }
+
+    public void checkOrderConfirmation() {
+        completeOrderElement.shouldHave(text("THANK YOU FOR YOUR ORDER"));
+    }
+
+    public void checkOrderCanceling() {
     }
 }
