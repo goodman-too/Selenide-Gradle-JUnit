@@ -8,7 +8,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
 
-public class FinalCheckoutPage {
+public class FinalCheckoutPage extends HeaderElements {
 
     SelenideElement cancelButton = $("button#cancel");
     SelenideElement finishButton = $("button#finish");
@@ -43,5 +43,6 @@ public class FinalCheckoutPage {
     }
 
     public void checkOrderCanceling() {
+        pageTitle.shouldHave(text("Products"));
     }
 }

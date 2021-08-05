@@ -11,6 +11,7 @@ public class HeaderElements {
     SelenideElement aboutInMenu = $("a#about_sidebar_link");
     SelenideElement logOutInMenu = $("a#logout_sidebar_link");
     SelenideElement resetAppInMenu = $("a#reset_sidebar_link");
+    SelenideElement pageTitle = $("span.title");
 
     public void logOut() {
         menuButton.click();

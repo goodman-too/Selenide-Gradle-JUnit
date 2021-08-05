@@ -63,7 +63,7 @@ public class ShoppingTest {
         finalCheckoutPage.cancelOrder();
 
         //Asserts
-        Assertions.assertEquals("https://www.saucedemo.com/inventory.html", WebDriverRunner.url());
+        finalCheckoutPage.checkOrderCanceling();
     }
 
     @Test
