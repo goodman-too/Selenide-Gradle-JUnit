@@ -1,5 +1,3 @@
-package utils;
-
 import com.codeborne.selenide.SelenideElement;
 
 import java.math.BigDecimal;
@@ -29,25 +27,5 @@ public class FinalCheckoutPage {
                 .map(BigDecimal::new)
                 .reduce(BigDecimal::add)
                 .get();
-    }
-
-    public SelenideElement getCancelButton() {
-        return cancelButton;
-    }
-
-    public SelenideElement getFinishButton() {
-        return finishButton;
-    }
-
-    public SelenideElement getItemTotalPrice() {
-        return itemTotalPrice;
-    }
-
-    public List<SelenideElement> getItemsPrices() {
-        return itemsPrices;
-    }
-
-    public SelenideElement getCompleteOrderElement() {
-        return completeOrderElement;
     }
 }

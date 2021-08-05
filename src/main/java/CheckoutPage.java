@@ -1,5 +1,3 @@
-package utils;
-
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -18,26 +16,5 @@ public class CheckoutPage extends HeaderElements {
         firstNameField.setValue("Name");
         lastNameField.setValue("Name");
         postalCodeField.setValue("007007");
-    }
-
-
-    public SelenideElement getFirstNameField() {
-        return firstNameField;
-    }
-
-    public SelenideElement getLastNameField() {
-        return lastNameField;
-    }
-
-    public SelenideElement getPostalCodeField() {
-        return postalCodeField;
-    }
-
-    public SelenideElement getCancelButton() {
-        return cancelButton;
-    }
-
-    public SelenideElement getContinueButton() {
-        return continueButton;
     }
 }

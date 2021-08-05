@@ -1,13 +1,20 @@
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import org.junit.jupiter.api.*;
-import utils.*;
 
 import static com.codeborne.selenide.Condition.appear;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
+
 @DisplayName("Shopping tests")
 public class ShoppingTest {
+
+    LoginPage loginPage = new LoginPage();
+    InventoryPage inventoryPage = new InventoryPage();
+    CartPage cartPage = new CartPage();
+    CheckoutPage checkoutPage = new CheckoutPage();
+    FinalCheckoutPage finalCheckoutPage = new FinalCheckoutPage();
+
 
     @BeforeEach
     public void setUp() {
@@ -21,89 +28,79 @@ public class ShoppingTest {
 
 
     @Test
-    @DisplayName("Complete order test")
+    @DisplayName("Complete order")
     public void shouldSuccessfulBuy() {
-        LoginPage loginPage = new LoginPage();
+        //Preconditions
         loginPage.login("standard_user", "secret_sauce");
 
-        InventoryPage inventoryPage = new InventoryPage();
         inventoryPage.addAllItemsToCart();
-        inventoryPage.getShoppingCartButton().click();
+        inventoryPage.shoppingCartButton.click();
 
-        CartPage cartPage = new CartPage();
-        cartPage.getCheckoutButton().click();
+        cartPage.checkoutButton.click();
 
-        CheckoutPage checkoutPage = new CheckoutPage();
         checkoutPage.fillUserFields();
-        checkoutPage.getContinueButton().click();
+        checkoutPage.continueButton.click();
 
-        FinalCheckoutPage finalCheckoutPage = new FinalCheckoutPage();
-        finalCheckoutPage.getFinishButton().click();
+        finalCheckoutPage.finishButton.click();
 
-        finalCheckoutPage.getCompleteOrderElement().should(appear);
-        Assertions.assertEquals("THANK YOU FOR YOUR ORDER", finalCheckoutPage.getCompleteOrderElement().getText());
+        //Asserts
+        finalCheckoutPage.completeOrderElement.should(appear);
+        Assertions.assertEquals("THANK YOU FOR YOUR ORDER", finalCheckoutPage.completeOrderElement.getText());
     }
 
     @Test
-    @DisplayName("Cancel order test")
+    @DisplayName("Cancel order")
     public void shouldCancelOrder() {
-        LoginPage loginPage = new LoginPage();
+        //Preconditions
         loginPage.login("standard_user", "secret_sauce");
 
-        InventoryPage inventoryPage = new InventoryPage();
         inventoryPage.addAllItemsToCart();
-        inventoryPage.getShoppingCartButton().click();
+        inventoryPage.shoppingCartButton.click();
 
-        CartPage cartPage = new CartPage();
-        cartPage.getCheckoutButton().click();
+        cartPage.checkoutButton.click();
 
-        CheckoutPage checkoutPage = new CheckoutPage();
         checkoutPage.fillUserFields();
-        checkoutPage.getContinueButton().click();
+        checkoutPage.continueButton.click();
 
-        FinalCheckoutPage finalCheckoutPage = new FinalCheckoutPage();
-        finalCheckoutPage.getCancelButton().click();
+        finalCheckoutPage.cancelButton.click();
 
+        //Asserts
         Assertions.assertEquals("https://www.saucedemo.com/inventory.html", WebDriverRunner.url());
     }
 
     @Test
-    @DisplayName("Remove items from shopping cart test")
+    @DisplayName("Remove last item from shopping cart")
     public void shouldRemoveItemsFromCart() {
-        LoginPage loginPage = new LoginPage();
+        //Preconditions
         loginPage.login("standard_user", "secret_sauce");
 
-        InventoryPage inventoryPage = new InventoryPage();
         inventoryPage.addAllItemsToCart();
-        inventoryPage.getShoppingCartButton().click();
+        inventoryPage.shoppingCartButton.click();
 
-        CartPage cartPage = new CartPage();
-        int numbersOfItemsBefore = cartPage.getRemoveButtons().size();
+        //Get data for assert
+        int numbersOfItemsBefore = cartPage.removeButtons.size();
         cartPage.removeLastItem();
-        int numbersOfItemsAfter = cartPage.getRemoveButtons().size();
+        int numbersOfItemsAfter = cartPage.removeButtons.size();
 
+        //Asserts
         Assertions.assertEquals(numbersOfItemsBefore, (numbersOfItemsAfter+1));
     }
 
     @Test
-    @DisplayName("Correct order sum test")
+    @DisplayName("Check correctness of sum on the final checkout page")
     public void shouldDisplayCorrectSumOnFinalCheckoutPage() {
-        LoginPage loginPage = new LoginPage();
+        //Preconditions
         loginPage.login("standard_user", "secret_sauce");
 
-        InventoryPage inventoryPage = new InventoryPage();
         inventoryPage.addAllItemsToCart();
-        inventoryPage.getShoppingCartButton().click();
+        inventoryPage.shoppingCartButton.click();
 
-        CartPage cartPage = new CartPage();
-        cartPage.getCheckoutButton().click();
+        cartPage.checkoutButton.click();
 
-        CheckoutPage checkoutPage = new CheckoutPage();
         checkoutPage.fillUserFields();
-        checkoutPage.getContinueButton().click();
+        checkoutPage.continueButton.click();
 
-        FinalCheckoutPage finalCheckoutPage = new FinalCheckoutPage();
-
+        //Asserts
         Assertions.assertEquals(finalCheckoutPage.getTotalPrice(), finalCheckoutPage.getSumOfAllItems());
     }
 }

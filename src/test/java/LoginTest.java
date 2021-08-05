@@ -1,13 +1,15 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
-import utils.LoginPage;
 
 import static com.codeborne.selenide.Selenide.*;
 
 
 @DisplayName("Login Tests")
 public class LoginTest {
+
+    LoginPage loginPage = new LoginPage();
+
 
     @BeforeEach
     public void setUp() {
@@ -19,33 +21,31 @@ public class LoginTest {
         closeWebDriver();
     }
 
+
     @Test
     @DisplayName("Login test")
     public void shouldLogin() {
-        LoginPage lp = new LoginPage();
-        lp.login("standard_user", "secret_sauce");
+        loginPage.login("standard_user", "secret_sauce");
 
-        Assertions.assertTrue(lp.getMenuButton().isDisplayed());
+        Assertions.assertTrue(loginPage.menuButton.isDisplayed());
     }
 
     @Test
     @DisplayName("Login test with incorrect user")
     public void shouldNotLogin() {
-        LoginPage lp = new LoginPage();
-        lp.login("asdfasdf", "asdfasdfasdf");
+        loginPage.login("asdfasdf", "asdfasdfasdf");
 
-        Assertions.assertTrue(lp.getErrorMessage().exists());
+        Assertions.assertTrue(loginPage.errorMessage.exists());
     }
 
     @Test
     @DisplayName("Log out test")
     public void shouldLogOut() {
-        LoginPage lp = new LoginPage();
-        lp.login("standard_user", "secret_sauce");
+        loginPage.login("standard_user", "secret_sauce");
 
-        lp.getMenuButton().should(Condition.appear).click();
-        lp.getLogOutInMenu().should(Condition.appear).click();
+        loginPage.menuButton.should(Condition.appear).click();
+        loginPage.logOutInMenu.should(Condition.appear).click();
 
-        Assertions.assertTrue(lp.getLoginButton().isDisplayed());
+        Assertions.assertTrue(loginPage.loginButton.isDisplayed());
     }
 }

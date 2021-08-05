@@ -1,5 +1,3 @@
-package utils;
-
 import com.codeborne.selenide.SelenideElement;
 
 import java.util.List;
@@ -17,18 +15,5 @@ public class CartPage {
 
     public void removeLastItem() {
         removeButtons.get(removeButtons.size() - 1).click();
-    }
-
-
-    public SelenideElement getContinueShoppingButton() {
-        return continueShoppingButton;
-    }
-
-    public SelenideElement getCheckoutButton() {
-        return checkoutButton;
-    }
-
-    public List<SelenideElement> getRemoveButtons() {
-        return removeButtons;
     }
 }

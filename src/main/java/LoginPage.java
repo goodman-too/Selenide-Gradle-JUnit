@@ -1,5 +1,3 @@
-package utils;
-
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
@@ -19,21 +17,5 @@ public class LoginPage extends HeaderElements {
         loginField.setValue(login);
         passwordField.setValue(password);
         loginButton.click();
-    }
-
-    public SelenideElement getLoginField() {
-        return loginField;
-    }
-
-    public SelenideElement getPasswordField() {
-        return passwordField;
-    }
-
-    public SelenideElement getLoginButton() {
-        return loginButton;
-    }
-
-    public SelenideElement getErrorMessage() {
-        return errorMessage;
     }
 }
