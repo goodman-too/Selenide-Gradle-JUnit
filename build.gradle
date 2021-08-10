@@ -7,6 +7,10 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+javadoc.options.encoding = 'UTF-8'
+
 repositories {
     mavenCentral()
 }
@@ -18,8 +22,10 @@ dependencies {
     testImplementation('junit:junit:4.13.2')
     testRuntimeOnly('org.junit.vintage:junit-vintage-engine:5.7.2')
 
-//    testCompile 'com.codeborne:selenide:5.23.0'
     implementation group: 'com.codeborne', name: 'selenide', version: '5.23.0'
+
+    testImplementation 'io.cucumber:cucumber-java:6.10.4'
+    testImplementation 'io.cucumber:cucumber-junit:6.10.4'
 }
 
 apply plugin: 'java'
