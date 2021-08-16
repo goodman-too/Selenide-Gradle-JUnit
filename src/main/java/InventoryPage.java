@@ -1,4 +1,5 @@
 import com.codeborne.selenide.SelenideElement;
+import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
@@ -13,6 +14,7 @@ public class InventoryPage extends HeaderElements {
     SelenideElement addOnesieButton = $("add-to-cart-sauce-labs-onesie");
     SelenideElement addRedTshirtButton = $("add-to-cart-test.allthethings()-t-shirt-(red)");
 
+    @Step("Add all items from inventory page to cart")
     public void addAllItemsToCart() {
         $$("button.btn_inventory").forEach(SelenideElement::click);
     }
